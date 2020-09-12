@@ -121,3 +121,17 @@ WHERE salary IS NULL;
 
 -- wynik: 2
 ```
+
+## Polecenie DISTINCT 🌠
+
+Policz ile departamentów pojawia się w tabeli pracowników. Wyświetl tylko unikalne wartości departamentów.
+Sprawdź w jakich nazwiskach przedostatnia litera to litera a.
+
+```sql
+SELECT COUNT(DISTINCT department_id)
+FROM employee;
+
+SELECT DISTINCT last_name
+FROM employee
+WHERE last_name LIKE '%a';
+```
