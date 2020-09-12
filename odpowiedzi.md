@@ -172,3 +172,69 @@ FROM department
 WHERE department_name LIKE '% %'
 ORDER BY department_name;
 ```
+
+## Dodawanie i usuwanie rekordów ✒️
+
+### Aktualizowanie danych 🍩
+
+Dowolnemu pracownikowi zmień nazwisko. Podejrzyj zmianę
+Podnieś wszystkim pracownikom działu o id 4 pensję o 10 tys. Wyświetl zmianę.
+Podnieś pensję pracownikom, których manager ma id większe niż 190 i których pensja była niższa niż 70 tys. Wynik przed i po wyświetl.
+
+```sql
+UPDATE employee
+SET last_name = 'Smith'
+WHERE employee_id = 1;
+
+SELECT * FROM employee 
+WHERE employee_id = 1
+
+
+UPDATE employee
+SET salary = salary + 10000
+WHERE department_id = 4;
+
+UPDATE employee
+SET salary = salary + 10000
+WHERE manager_id > 190 AND salary < 70000;
+```
+
+### Usuwanie danych 🗑️
+
+Usuń pracowników, których pensja nie jest znana
+Znajdź pracownika, który nie posiada managera. Usuń go z tabeli.
+Znajdź pracowników działu 5 i usuń wszystkich ❌
+
+```sql
+DELETE FROM employee
+where salary IS NULL;
+
+DELETE FROM employee
+where manager_id IS NULL;
+
+DELETE FROM employee
+where department_id = 5;
+```
+
+## Funkcje 💫
+Znajdź maksymalną pensję w dziale nr 7
+Znajdź minimalną pensję pracownika tej firmy
+Znajdź średnią pensję pracowników firmy
+Znajdź średnią pensję pracowników tej firmy, którzy należą do działów 4, 5, 6, 7 lub ich nazwisko zawiera literę a wewnątrz nazwiska (nie na początku i nie na końcu).
+
+```sql
+SELECT MAX(salary)
+FROM employee
+WHERE department_id = 7;
+
+SELECT MIN(salary)
+FROM employee;
+
+SELECT AVG(salary)
+FROM employee;
+
+SELECT AVG(salary)
+FROM employee
+WHERE department_id IN (4, 5, 6, 7) OR last_name LIKE '%a%';
+```
+
