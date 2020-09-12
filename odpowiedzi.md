@@ -238,7 +238,7 @@ FROM employee
 WHERE department_id IN (4, 5, 6, 7) OR last_name LIKE '%a%';
 ```
 
-9. Podzapytania 🤔
+## 9. Podzapytania 🤔
 
 1. Sprawdź jaka pensja jest minimalna w tej firmie. Znajdź pracowników, którzy zarabiają pensję do 10 tys większą niż pensja minimalna. Policz ich.
 2. Znajdź pracowników, którzy zarabiają pensję do 10 tys mniejszą niż pensja maksymalna. Policz ich.
