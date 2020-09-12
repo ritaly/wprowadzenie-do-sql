@@ -124,8 +124,8 @@ WHERE salary IS NULL;
 
 ## Polecenie DISTINCT 🌠
 
-Policz ile departamentów pojawia się w tabeli pracowników. Wyświetl tylko unikalne wartości departamentów.
-Sprawdź w jakich nazwiskach przedostatnia litera to litera a.
+1. Policz ile departamentów pojawia się w tabeli pracowników. Wyświetl tylko unikalne wartości departamentów.
+2. Sprawdź w jakich nazwiskach przedostatnia litera to litera a.
 
 ```sql
 SELECT COUNT(DISTINCT department_id)
@@ -138,9 +138,9 @@ WHERE last_name LIKE '%a';
 
 ## Sortowanie ORDER BY 🎈
 
-Posortuj tabelę pracowników wg. pensji rosnąco oraz malejąco.
-Ogranicz swoje zapytanie. Znajdź pracowników, którzy pracują w departamentach o id wyższym niż 4, i którzy zarabiają ponad 70 tys a mniej niż 100 tys.
-Wyświetl numer departamentu i jego nazwę z tabeli zawierającej działy w firmie, nazwy wyświetl w kolejności alfabetycznej.
+- Posortuj tabelę pracowników wg. pensji rosnąco oraz malejąco.
+- Ogranicz swoje zapytanie. Znajdź pracowników, którzy pracują w departamentach o id wyższym niż 4, i którzy zarabiają ponad 70 tys a mniej niż 100 tys.
+- Wyświetl numer departamentu i jego nazwę z tabeli zawierającej działy w firmie, nazwy wyświetl w kolejności alfabetycznej.
 
 ```sql
 SELECT first_name, last_name, salary
@@ -159,8 +159,8 @@ ORDER BY department_name;
 ```
 
 
-⭐ Posortuj dane pracowników po dwóch kolumnach, najpierw alfabetycznie wg nazwisk i malejąco wg pensji.
-⭐ Sprawdź jak działają metoody UPPER/LOWER/REPLACE dla PostgreSQL. Wyświetl nazwy departamentów drukowanymi literami w kolejności alfabetycznej. Odfiltruj tak, by mieć widoczne tylko departamenty o nazwach dwu członowych.
+-  ⭐ Posortuj dane pracowników po dwóch kolumnach, najpierw alfabetycznie wg nazwisk i malejąco wg pensji.
+-  ⭐ Sprawdź jak działają metoody UPPER/LOWER/REPLACE dla PostgreSQL. Wyświetl nazwy departamentów drukowanymi literami w kolejności alfabetycznej. Odfiltruj tak, by mieć widoczne tylko departamenty o nazwach dwu członowych.
 
 ```sql
 SELECT first_name, last_name, salary
@@ -177,9 +177,9 @@ ORDER BY department_name;
 
 ### Aktualizowanie danych 🍩
 
-Dowolnemu pracownikowi zmień nazwisko. Podejrzyj zmianę
-Podnieś wszystkim pracownikom działu o id 4 pensję o 10 tys. Wyświetl zmianę.
-Podnieś pensję pracownikom, których manager ma id większe niż 190 i których pensja była niższa niż 70 tys. Wynik przed i po wyświetl.
+- Dowolnemu pracownikowi zmień nazwisko. Podejrzyj zmianę
+- Podnieś wszystkim pracownikom działu o id 4 pensję o 10 tys. Wyświetl zmianę.
+- Podnieś pensję pracownikom, których manager ma id większe niż 190 i których pensja była niższa niż 70 tys. Wynik przed i po wyświetl.
 
 ```sql
 UPDATE employee
@@ -201,9 +201,9 @@ WHERE manager_id > 190 AND salary < 70000;
 
 ### Usuwanie danych 🗑️
 
-Usuń pracowników, których pensja nie jest znana
-Znajdź pracownika, który nie posiada managera. Usuń go z tabeli.
-Znajdź pracowników działu 5 i usuń wszystkich ❌
+- Usuń pracowników, których pensja nie jest znana
+- Znajdź pracownika, który nie posiada managera. Usuń go z tabeli.
+- Znajdź pracowników działu 5 i usuń wszystkich ❌
 
 ```sql
 DELETE FROM employee
@@ -217,10 +217,10 @@ where department_id = 5;
 ```
 
 ## Funkcje 💫
-Znajdź maksymalną pensję w dziale nr 7
-Znajdź minimalną pensję pracownika tej firmy
-Znajdź średnią pensję pracowników firmy
-Znajdź średnią pensję pracowników tej firmy, którzy należą do działów 4, 5, 6, 7 lub ich nazwisko zawiera literę a wewnątrz nazwiska (nie na początku i nie na końcu).
+- Znajdź maksymalną pensję w dziale nr 7
+- Znajdź minimalną pensję pracownika tej firmy
+- Znajdź średnią pensję pracowników firmy
+- Znajdź średnią pensję pracowników tej firmy, którzy należą do działów 4, 5, 6, 7 lub ich nazwisko zawiera literę a wewnątrz nazwiska (nie na początku i nie na końcu).
 
 ```sql
 SELECT MAX(salary)
@@ -236,5 +236,51 @@ FROM employee;
 SELECT AVG(salary)
 FROM employee
 WHERE department_id IN (4, 5, 6, 7) OR last_name LIKE '%a%';
+```
+
+9. Podzapytania 🤔
+
+1. Sprawdź jaka pensja jest minimalna w tej firmie. Znajdź pracowników, którzy zarabiają pensję do 10 tys większą niż pensja minimalna. Policz ich.
+2. Znajdź pracowników, którzy zarabiają pensję do 10 tys mniejszą niż pensja maksymalna. Policz ich.
+3. Znajdź pracowników, którzy zarabiają od o 20 tys więcej niż pensja minimalna do o 20 tys mniej niż pensja maksymalna.
+4. Znajdź pracowników, którzy zarabiają ponad połowę pensji pracownika o najwyższej pensji, ich nazwisko zawiera literę _r_.  Pogrupuj wg. otrzymywanej pensji oraz posortuj malejąco liczbą pracowników o takiej samej pensji.
+
+
+```sql
+SELECT COUNT(*) FROM employee
+WHERE salary < (
+    SELECT MIN(salary) + 10000
+    FROM employee
+);
+
+-- wynik: 23
+
+SELECT COUNT(*) FROM employee
+WHERE salary > (
+    SELECT MAX(salary) - 10000
+    FROM employee
+);
+
+--- wynik: 18
+
+
+SELECT COUNT(*) FROM employee
+WHERE salary > (
+    SELECT MIN(salary) + 20000
+    FROM employee
+)
+AND salary < (
+    SELECT MAX(salary) - 20000
+    FROM employee
+);
+
+SELECT salary, COUNT(*) FROM employee
+WHERE salary > (
+    SELECT MAX(salary) / 2
+    FROM employee
+)
+AND last_name LIKE '%r%'
+GROUP BY salary
+ORDER BY count DESC;
 ```
 
