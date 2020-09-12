@@ -135,3 +135,40 @@ SELECT DISTINCT last_name
 FROM employee
 WHERE last_name LIKE '%a';
 ```
+
+## Sortowanie ORDER BY 🎈
+
+Posortuj tabelę pracowników wg. pensji rosnąco oraz malejąco.
+Ogranicz swoje zapytanie. Znajdź pracowników, którzy pracują w departamentach o id wyższym niż 4, i którzy zarabiają ponad 70 tys a mniej niż 100 tys.
+Wyświetl numer departamentu i jego nazwę z tabeli zawierającej działy w firmie, nazwy wyświetl w kolejności alfabetycznej.
+
+```sql
+SELECT first_name, last_name, salary
+FROM employee
+ORDER BY salary DESC;
+
+SELECT first_name, last_name, salary, department_id
+FROM employee
+WHERE department_id > 4 AND salary > 70000 AND salary < 100000
+ORDER BY salary DESC;
+
+SELECT department_id, department_name
+FROM department
+WHERE department_id > 4
+ORDER BY department_name;
+```
+
+
+⭐ Posortuj dane pracowników po dwóch kolumnach, najpierw alfabetycznie wg nazwisk i malejąco wg pensji.
+⭐ Sprawdź jak działają metoody UPPER/LOWER/REPLACE dla PostgreSQL. Wyświetl nazwy departamentów drukowanymi literami w kolejności alfabetycznej. Odfiltruj tak, by mieć widoczne tylko departamenty o nazwach dwu członowych.
+
+```sql
+SELECT first_name, last_name, salary
+FROM employee
+ORDER BY last_name, salary DESC
+
+SELECT department_id, UPPER(department_name)
+FROM department
+WHERE department_name LIKE '% %'
+ORDER BY department_name;
+```
