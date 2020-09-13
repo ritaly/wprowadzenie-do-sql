@@ -2,9 +2,9 @@
 
 ## Polecenie SELECT 👀
 
-Wyświetl wszystkie dane wszystkich klientów firmy.
-Wyświetl tylko nazwisko i adres
-Z tabeli produktów wyświetl nazwę produktu wraz z ceną.
+- Wyświetl wszystkie dane wszystkich klientów firmy.
+- Wyświetl tylko nazwisko i adres
+-Z tabeli produktów wyświetl nazwę produktu wraz z ceną.
 
 ```sql
 SELECT * from customer;
@@ -12,7 +12,7 @@ SELECT first_name, last_name from customer;
 SELECT product_name, price from product;
 ```
 
-Wyświetl roczne pensje wszystkich pracowników.
+- Wyświetl roczne pensje wszystkich pracowników.
 
 ```sql
 SELECT
@@ -22,7 +22,7 @@ FROM employee;
 
 ## Filtrowanie WHERE 🔍
 
-Sprawdź, ilu pracowników o nazwisku Smith pracuje w tej firmie, a Jones?
+- Sprawdź, ilu pracowników o nazwisku Smith pracuje w tej firmie, a Jones?
 
 ```sql
 SELECT employee_id, first_name, last_name
@@ -112,7 +112,7 @@ WHERE salary > 65000 AND (first_name = 'Barbara' OR last_name LIKE '%o%');
 ```
 
 ### NULL
-Znajdź pracowników, których pensja nie została podana
+- Znajdź pracowników, których pensja nie została podana
 
 ```sql
 SELECT first_name, last_name, salary
