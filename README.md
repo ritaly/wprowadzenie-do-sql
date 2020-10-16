@@ -1,4 +1,4 @@
-# Wprowadzenie do SQL w 3 godziny
+# Krok do przyszłości z bazami danych
 
 ## Zakres
 - Zrozumienie czym są bazy danych, dlaczego są przydatne
